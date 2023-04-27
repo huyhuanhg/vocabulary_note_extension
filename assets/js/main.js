@@ -1,5 +1,3 @@
-
-
 // const show = async (e, text) => {
 //   const translateText = await trans(text);
 

@@ -42,7 +42,16 @@
         "/assets/css/injection.css"
       ],
       "js": [
+        "/assets/js/box-login-or-user.js",
         "/assets/js/injection.js"
+      ]
+    },
+    {
+      "matches": [
+        "http://localhost:3000/extension/auth/login"
+      ],
+      "js": [
+        "/assets/js/login.js"
       ]
     }
   ],

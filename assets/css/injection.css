@@ -1,0 +1,117 @@
+@import "./box-login-or-user.css";
+
+#box_content_voca_extension {
+  width: 370px;
+  position: sticky;
+  top: 0;
+  left: 100%;
+  font-family: Quicksand !important;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px !important;
+  border-bottom-left-radius: 12px !important;
+  font-size: 13px !important;
+}
+
+#voca-header {
+  z-index: 10;
+  display: flex !important;
+  justify-content: space-between !important;
+  height: 47px !important;
+  align-items: center !important;
+  color: black !important;
+  font-weight: bold !important;
+  position: sticky !important;
+  top: 0px !important;
+  right: 0px !important;
+  left: 0px !important;
+  border-bottom: 1px solid rgb(255, 203, 8) !important;
+  background: white !important;
+  padding-right: 20px;
+}
+
+.voca-tab {
+  border-top-right-radius: 5px;
+  font-size: 14px;
+  display: flex !important;
+  align-items: center !important;
+  height: 100% !important;
+  cursor: pointer !important;
+  padding: 0px 12px !important;
+}
+
+.voca-tab-active {
+  background-color: rgb(255, 203, 8) !important;
+}
+
+box-login-or-user {
+  margin: 0;
+}
+
+#voca-box-arround-content {
+  min-height: 200px;
+  position: relative;
+  padding: 0px 15px 40px !important;
+}
+
+#voca-box-arround-content .wrapper {
+  position: relative;
+  font-size: 13px !important;
+}
+
+/* content loading */
+
+#voca-box-arround-content .wrapper.loading {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%);
+}
+
+#voca-box-arround-content .wrapper.loading::before {
+  content: "";
+  display: block;
+  position: absolute;
+  border: 4px solid rgb(255, 203, 8);
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+#voca-box-arround-content .wrapper.loading::after {
+  content: "";
+  display: block;
+  animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}

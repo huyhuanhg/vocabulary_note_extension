@@ -5,11 +5,36 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="./popup.js" defer type="module"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/popup.css">
+  <script src="./assets/js/box-login-or-user.js" defer></script>
+  <script src="./assets/js/popup.js" defer type="module"></script>
 </head>
 
 <body>
-  This is my extension
+  <div class="box_extension">
+    <div class="user__information">
+      <box-login-or-user class="loading">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <!-- <a class="ex-text-userinfo" href="http://localhost:3000/extension/auth/login" target="_blank">
+          <span class="user-display-name">Đăng nhập</span>
+          <img  class="user-avatar" src="./assets/images/empty_user.png" alt="User">
+        </a> -->
+        <!-- <a class="ex-text-userinfo" href="http://localhost:3000/user" target="_blank">
+          <span class="user-display-name">Huy Huấn Hoàng</span>
+          <img  class="user-avatar" src="https://lh3.googleusercontent.com/a/AGNmyxZeHznjiil-R5jRuKx5PGFQy4duquKMRhz6ggda=s96-c" alt="Huy Huấn Hoàng">
+        </a> -->
+      </box-login-or-user>
+    </div>
+    <div class="box_input_search">
+      <input class="box_input_search-input" placeholder="Tra cứu">
+      <img src="./assets/images/search.png" alt="search">
+    </div>
+  </div>
 </body>
 
 </html>

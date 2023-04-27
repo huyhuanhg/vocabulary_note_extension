@@ -1,0 +1,94 @@
+.user__information {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: end;
+}
+
+box-login-or-user {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.ex-text-userinfo {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+  color: rgba(255, 203, 8, 1);
+  line-height: 30px;
+}
+
+.user-display-name {
+  font-weight: bold;
+  margin-right: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #d4d4d4;
+}
+
+/* user info loading */
+
+box-login-or-user.loading {
+  position: relative;
+  width: 80px;
+  height: 30px;
+}
+
+box-login-or-user.loading span {
+  display: inline-block;
+  position: absolute;
+  top: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 203, 8, 1);
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  transform: translateY(-50%);
+}
+box-login-or-user.loading span:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+box-login-or-user.loading span:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+box-login-or-user.loading span:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+box-login-or-user.loading span:nth-child(4) {
+  left: 44px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(18px, 0);
+  }
+}

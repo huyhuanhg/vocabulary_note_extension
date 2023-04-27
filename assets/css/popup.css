@@ -1,0 +1,41 @@
+@import "./box-login-or-user.css";
+
+.box_extension {
+  width: 370px;
+  padding: 10px 17px 15px;
+  font-family: "Quicksand", sans-serif;
+  border-radius: 20px 0px 0px 20px;
+}
+
+.box_input_search {
+  position: relative;
+  margin-top: 1%;
+}
+
+.box_input_search-input {
+  height: 17px;
+  padding: 10px 40px 10px 20px;
+  border-radius: 100px;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.box_input_search-input:focus-visible {
+  outline: none !important;
+  border: 2px solid #ffba00;
+}
+
+.box_input_search img {
+  position: absolute;
+  right: 17px;
+  top: 5px;
+  width: 26px;
+  cursor: pointer;
+}
+
