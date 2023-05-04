@@ -4,7 +4,7 @@ chrome.runtime.onMessage.addListener(
   ({ method, data }, sender, sendResponse) => {
     switch (method) {
       case "login":
-        if (sender.url === "https://famous-sorbet-043f80.netlify.app/extension/auth/login") {
+        if (sender.url === "https://famous-sorbet-043f80.netlify.app/auth/login/extension") {
           chrome.storage.local.set({ userinfo: data });
           sendResponse({ status: "success" });
         }

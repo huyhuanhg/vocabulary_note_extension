@@ -224,7 +224,7 @@ const renderUser = (box) => {
   link.className = "ex-text-userinfo";
   link.href = user?.email
     ? "https://famous-sorbet-043f80.netlify.app/user"
-    : "https://famous-sorbet-043f80.netlify.app/extension/auth/login";
+    : "https://famous-sorbet-043f80.netlify.app/auth/login/extension";
   link.target = "_blank";
 
   link.append(text);
