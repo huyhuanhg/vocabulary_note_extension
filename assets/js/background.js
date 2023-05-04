@@ -1,25 +1,30 @@
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (
-    message.hasOwnProperty("userinfo") &&
-    sender.url === "http://localhost:3000/extension/auth/login"
-  ) {
-    chrome.storage.local.set({ userinfo: message.userinfo });
-    sendResponse({ status: "success" });
+
+
+chrome.runtime.onMessage.addListener(
+  ({ method, data }, sender, sendResponse) => {
+    switch (method) {
+      case "login":
+        if (sender.url === "https://famous-sorbet-043f80.netlify.app/extension/auth/login") {
+          chrome.storage.local.set({ userinfo: data });
+          sendResponse({ status: "success" });
+        }
+        break;
+    }
+
+    return true;
   }
-});
+);
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
   if (areaName === "local" && changes.hasOwnProperty("userinfo")) {
     chrome.tabs.onActivated.addListener((tabId) => {
-      const { email, displayName, photoURL } = JSON.parse(
-        changes.userinfo.newValue
-      );
+      const userinfo = JSON.parse(changes.userinfo.newValue);
       chrome.tabs.sendMessage(tabId, {
         method: "voca_update_userinfo",
         data: {
-          email: email || "",
-          displayName: displayName || "",
-          photoURL: photoURL || "",
+          email: userinfo?.email || "",
+          displayName: userinfo?.displayName || "",
+          photoURL: userinfo?.photoURL || "",
         },
       });
     });
@@ -30,15 +35,13 @@ chrome.tabs.onUpdated.addListener((tabId, { status }, tab) => {
   if (status === "complete") {
     chrome.storage.local.get(["userinfo"]).then((result) => {
       if (result.hasOwnProperty("userinfo")) {
-        const { email, displayName, photoURL } = JSON.parse(
-          result.userinfo
-        );
+        const userinfo = JSON.parse(result.userinfo);
         chrome.tabs.sendMessage(tabId, {
           method: "voca_update_userinfo",
           data: {
-            email: email || "",
-            displayName: displayName || "",
-            photoURL: photoURL || "",
+            email: userinfo?.email || "",
+            displayName: userinfo?.displayName || "",
+            photoURL: userinfo?.photoURL || "",
           },
         });
       }

@@ -42,13 +42,13 @@
         "/assets/css/injection.css"
       ],
       "js": [
-        "/assets/js/box-login-or-user.js",
         "/assets/js/injection.js"
       ]
     },
     {
       "matches": [
-        "http://localhost:3000/extension/auth/login"
+        "http://localhost:3000/extension/auth/login",
+        "https://famous-sorbet-043f80.netlify.app/extension/auth/login"
       ],
       "js": [
         "/assets/js/login.js"
@@ -61,10 +61,11 @@
         "<all_urls>"
       ],
       "resources": [
-        "/assets/js/config.js",
-        "/assets/js/helper.js",
-        "/assets/js/firebase.js",
-        "/assets/js/main.js"
+        "/resources/box-content.stub.html",
+        "/resources/box-gg-trans.stub.html",
+        "/resources/box-word-detail.stub.html",
+        "/resources/box-word-phonetic.stub.html",
+        "/assets/images/empty_user.png"
       ]
     }
   ]

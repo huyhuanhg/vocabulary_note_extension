@@ -1,7 +1,10 @@
 window.addEventListener('storage', (e) => {
   chrome.runtime.sendMessage(
     undefined,
-    { userinfo: e.newValue },
+    {
+      method: "login",
+      data: e.newValue
+    },
     (response) => {
       if (response.status === 'success') {
         window.close()
