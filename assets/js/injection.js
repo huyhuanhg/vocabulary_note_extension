@@ -90,6 +90,21 @@ const getContent = async (fileName) =>
     .then((res) => res.text())
     .then((txt) => txt);
 
+const getVocabularyExists = async (userEmail, ids) =>
+  fetch(
+    `http://localhost:3000/api/word/ids?user=${userEmail}&ids=${JSON.stringify(
+      ids
+    )}`
+  )
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+
+      return Promise.resolve({ data: { ids: [] } });
+    })
+    .then(({ data: { ids } }) => ids);
+
 const translate = async (text) => {
   const ggTransUrl = "https://translate.googleapis.com/translate_a/single";
 
@@ -152,8 +167,9 @@ const fetchInfo = async (text) => {
       return res.clone().json();
     })
     .then(({ data }) => {
-      const { suggests, vi } = data;
+      const { suggests, vi, ids } = data;
       return {
+        ids,
         search: text,
         suggests,
         data: vi.map(
@@ -289,10 +305,10 @@ const renderWordsOrSuggests = async (box, text) => {
     return;
   }
 
-  const { data, suggests } = responseData;
+  const { data, suggests, ids } = responseData;
 
   if (Array.isArray(data) && data.length > 0) {
-    renderWordContent(box, data);
+    renderWordContent(box, data, ids);
     return;
   }
 
@@ -305,7 +321,7 @@ const renderWordsOrSuggests = async (box, text) => {
   box.classList.remove("loading");
 };
 
-const renderWordContent = async (box, data) => {
+const renderWordContent = async (box, data, ids) => {
   const wordDetailStub = await getContent(STUB_PATH.WORD_DETAIL_CONTENT);
   const wordPhoneticStub = await getContent(STUB_PATH.WORD_PHONETIC_CONTENT);
 
@@ -345,7 +361,7 @@ const renderWordContent = async (box, data) => {
           wordDetailItem,
           content,
           ipa_us ?? null,
-          audio_us ?? null,
+          audio_us ?? null
         );
         wordDetail.append(detailNode);
       });
@@ -358,6 +374,42 @@ const renderWordContent = async (box, data) => {
 
   box.append(wrapper);
   box.classList.remove("loading");
+
+  renderSaveWordBtns(wrapper, ids);
+};
+
+const renderSaveWordBtns = async (wrapper, ids) => {
+  const user = getUser();
+
+  if (!user) {
+    return;
+  }
+
+  // add btns
+  const saveWordBtns = wrapper.querySelectorAll(".voca-word-action-btns");
+
+  if (saveWordBtns.length === 0) {
+    return;
+  }
+
+  const existVocabularyIds = await getVocabularyExists(user.email, ids);
+
+  saveWordBtns.forEach((saveWordBtn) => {
+    const btnSave = saveWordBtn.querySelector(".voca-word-action-btn");
+    const { saveWordData, wordId } = btnSave.dataset;
+
+    if (existVocabularyIds.includes(wordId)) {
+      btnSave.classList.add("voca-save-word-has-saved");
+      return
+    }
+
+    btnSave.classList.add("voca-save-word");
+    btnSave.onclick = () => {
+      fetch(
+        `https://famous-sorbet-043f80.netlify.app/api/word?q=${saveWordData}`
+      );
+    };
+  });
 };
 
 const getWordWrapper = (title, phoneticList, detailList) => {
@@ -414,20 +466,19 @@ const getWordDetailNode = (
   if (!user) {
     wordDetailNode.querySelector(".voca-word-action-btns")?.remove();
   } else {
-    const btnSave = wordDetailNode.querySelector(".voca-save-word");
-    const queryData = JSON.stringify({
+    const btnSave = wordDetailNode.querySelector(".voca-word-action-btn");
+
+    const saveData = {
       ...data,
       type,
       content,
       user: user.email,
       ipa_us,
       audio_us,
-    });
-    btnSave.onclick = () => {
-      fetch(
-        `https://famous-sorbet-043f80.netlify.app/api/word?q=${queryData}`
-      ).finally(() => btnSave.remove());
     };
+
+    btnSave.dataset.saveWordData = JSON.stringify(saveData);
+    btnSave.dataset.wordId = saveData.id;
   }
 
   wordDetailNode.querySelector(
