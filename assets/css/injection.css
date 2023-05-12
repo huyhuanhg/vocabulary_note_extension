@@ -318,25 +318,94 @@
   font-size: 14px !important;
 }
 
-#voca-box-arround-content .voca-save-word {
-  box-shadow: rgb(16, 161, 35) 0px 2px 1px 0px !important;
-  color: white !important;
+#voca-box-arround-content .voca-word-action-btn {
+  opacity: 0;
+  transition: 0.2s;
   width: 81px !important;
   height: 25px !important;
   display: flex !important;
   align-items: center !important;
   cursor: pointer !important;
-  background: linear-gradient(
-    270deg,
-    rgb(36, 173, 55) 0%,
-    rgb(87, 203, 4) 100%
-  ) !important;
   border-radius: 100px !important;
   border-width: initial !important;
   border-style: none !important;
   border-color: initial !important;
   border-image: initial !important;
   padding: 0px 5px !important;
+  cursor: default;
+}
+
+#voca-box-arround-content .voca-word-action-btn.voca-save-word-has-saved {
+  box-shadow: rgb(207, 207, 207) 0px 2px 1px 0px !important;
+  color: rgb(155, 155, 155) !important;
+  background: rgb(248, 248, 248) !important;
+  opacity: 1;
+  cursor: not-allowed !important;
+}
+
+#voca-box-arround-content .voca-word-action-btn.voca-save-word {
+  box-shadow: rgb(16, 161, 35) 0px 2px 1px 0px !important;
+  color: white !important;
+  background: linear-gradient(
+    270deg,
+    rgb(36, 173, 55) 0%,
+    rgb(87, 203, 4) 100%
+  ) !important;
+  opacity: 1;
+}
+
+#voca-box-arround-content .voca-word-action-btn.voca-save-word svg path {
+  fill: #fff;
+  opacity: 1;
+}
+
+#voca-box-arround-content
+  .voca-word-action-btn.voca-save-word-has-saved
+  svg
+  path {
+  fill: #000;
+  opacity: 0.2;
+}
+
+#voca-box-arround-content .voca-word-action-btn .voca-word-action-btn-label {
+  margin-left: 5px;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 1em;
+  color: #9b9b9b;
+}
+
+#voca-box-arround-content .voca-word-action-btn.loading {
+  opacity: 1;
+  position: relative;
+  cursor: wait;
+}
+
+#voca-box-arround-content .voca-word-action-btn.loading svg {
+  opacity: 1;
+  opacity: 0;
+}
+
+#voca-box-arround-content .voca-word-action-btn.loading::after {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  left: 5px;
+  top: calc(50% - 7.5px);
+
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #0038f0;
+  -webkit-animation: btn-word-save-voca-spin .5s linear infinite; /* Safari */
+  animation: btn-word-save-voca-spin .5s linear infinite;
+}
+
+#voca-box-arround-content
+  .voca-word-action-btn.voca-save-word
+  .voca-word-action-btn-label {
+  color: #fff;
 }
 
 #voca-box-arround-content .voca-word-sentence {
@@ -365,4 +434,23 @@
   font-style: normal !important;
   color: rgb(255, 203, 8) !important;
   cursor: pointer !important;
+}
+
+/* Safari */
+@-webkit-keyframes btn-word-save-voca-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes btn-word-save-voca-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

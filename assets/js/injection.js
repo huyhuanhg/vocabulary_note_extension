@@ -92,7 +92,7 @@ const getContent = async (fileName) =>
 
 const getVocabularyExists = async (userEmail, ids) =>
   fetch(
-    `http://localhost:3000/api/word/ids?user=${userEmail}&ids=${JSON.stringify(
+    `https://famous-sorbet-043f80.netlify.app/api/word/ids?user=${userEmail}&ids=${JSON.stringify(
       ids
     )}`
   )
@@ -400,14 +400,29 @@ const renderSaveWordBtns = async (wrapper, ids) => {
 
     if (existVocabularyIds.includes(wordId)) {
       btnSave.classList.add("voca-save-word-has-saved");
-      return
+      btnSave.querySelector('.voca-word-action-btn-label').innerText = 'Đã lưu'
+      return;
     }
 
     btnSave.classList.add("voca-save-word");
     btnSave.onclick = () => {
+      if (btnSave.classList.contains('disabled')  || !btnSave.classList.contains('voca-save-word')) {
+        return
+      }
+
+      btnSave.classList.add('loading')
+      btnSave.classList.add('disabled')
       fetch(
         `https://famous-sorbet-043f80.netlify.app/api/word?q=${saveWordData}`
-      );
+      ).then((res) => {
+        if (res.ok) {
+          btnSave.classList.remove('voca-save-word')
+          btnSave.classList.add('voca-save-word-has-saved')
+          btnSave.querySelector('.voca-word-action-btn-label').innerText = 'Đã lưu'
+        }
+      }).finally(() => {
+        btnSave.classList.remove('loading')
+      });
     };
   });
 };
