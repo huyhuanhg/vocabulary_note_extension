@@ -109,7 +109,7 @@ const translate = async (text) => {
   const ggTransUrl = "https://translate.googleapis.com/translate_a/single";
 
   const queryString = new URLSearchParams({
-    client: "dict-chrome-ex",
+    client: "gtx", //"dict-chrome-ex",
     sl: "en",
     tl: "vi",
     hl: "en-US",
