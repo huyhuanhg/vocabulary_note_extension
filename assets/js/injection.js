@@ -550,6 +550,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 });
 
+let preText = ''
 document.onmouseup = (e) => {
   const { dataset } = e.target;
 
@@ -564,7 +565,14 @@ document.onmouseup = (e) => {
     return;
   }
 
+  document.querySelector("#box_content_voca_extension")?.remove();
+
   const select = getSelectionText();
+  if(preText === select) {
+    return
+  }
+
+  preText = select
 
   if (select.length > 1000) {
     return;
@@ -577,15 +585,15 @@ document.onmouseup = (e) => {
   show(select);
 };
 
-document.onmousedown = (e) => {
-  const { dataset } = e.target;
+// document.onmousedown = (e) => {
+//   const { dataset } = e.target;
 
-  if (
-    dataset.hasOwnProperty("disabledMousedown") &&
-    dataset.disabledMousedown === "voca-ext"
-  ) {
-    return;
-  }
+//   if (
+//     dataset.hasOwnProperty("disabledMousedown") &&
+//     dataset.disabledMousedown === "voca-ext"
+//   ) {
+//     return;
+//   }
 
-  document.querySelector("#box_content_voca_extension")?.remove();
-};
+//   document.querySelector("#box_content_voca_extension")?.remove();
+// };
