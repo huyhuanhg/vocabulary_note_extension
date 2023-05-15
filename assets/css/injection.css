@@ -436,6 +436,19 @@
   cursor: pointer !important;
 }
 
+#voca-box-arround-content .voca-suggest-trans {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 15px;
+  margin-top: 15px;
+  color: #4096ff;
+
+}
+
+#voca-box-arround-content .voca-suggest-trans .highlight {
+  color: #002c8c
+}
+
 /* Safari */
 @-webkit-keyframes btn-word-save-voca-spin {
   0% {

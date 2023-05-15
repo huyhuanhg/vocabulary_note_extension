@@ -288,7 +288,6 @@ const renderTranslateContent = async (box, data) => {
     sentencesListNode.append(originElm);
     sentencesListNode.append(transElm);
   }
-
   box.append(node);
   box.classList.remove("loading");
 };
@@ -313,7 +312,7 @@ const renderWordsOrSuggests = async (box, text) => {
   }
 
   if (Array.isArray(suggests) && suggests.length > 0) {
-    renderSuggestContent(box, suggests);
+    renderSuggestContent(box, suggests, text);
     return;
   }
 
@@ -505,7 +504,7 @@ const getWordDetailNode = (
   return wordDetailNode;
 };
 
-const renderSuggestContent = async (box, data) => {
+const renderSuggestContent = async (box, data, text) => {
   const wrapper = make("div");
   wrapper.classList.add("voca-suggest-wrapper");
 
@@ -529,6 +528,16 @@ const renderSuggestContent = async (box, data) => {
 
     wrapper.append(suggestElm);
   });
+
+  const trans = make("p");
+  trans.innerHTML = `Dịch cụm từ: "<span class="highlight" data-disabled-mousedown="voca-ext">${text}</span>"`;
+  trans.classList.add("voca-suggest-trans");
+  trans.onclick = () => {
+    box.innerHTML = "";
+    box.classList.add("loading");
+    renderTranslate(box, text)
+  };
+  wrapper.append(trans)
 
   box.append(wrapper);
   box.classList.remove("loading");
