@@ -497,7 +497,7 @@ const getWordDetailNode = (
 
   wordDetailNode.querySelector(
     ".voca-text-translate"
-  ).innerHTML = `${data.trans} (${type})`;
+  ).innerHTML = `${data.trans} ${type ? `(${type })` : ''}`;
   wordDetailNode.querySelector(".voca-word-sentence").innerHTML =
     data.en_sentence;
 
