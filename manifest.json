@@ -48,7 +48,7 @@
     {
       "matches": [
         "http://localhost:3000/extension/auth/login",
-        "https://famous-sorbet-043f80.netlify.app/auth/login/extension"
+        "https://vocanote.netlify.app/auth/login/extension"
       ],
       "js": [
         "/assets/js/login.js"

@@ -92,7 +92,7 @@ const getContent = async (fileName) =>
 
 const getVocabularyExists = async (userEmail, ids) =>
   fetch(
-    `https://famous-sorbet-043f80.netlify.app/api/word/ids?user=${userEmail}&ids=${JSON.stringify(
+    `https://vocanote.netlify.app/api/word/ids?user=${userEmail}&ids=${JSON.stringify(
       ids
     )}`
   )
@@ -239,8 +239,8 @@ const renderUser = (box) => {
   const link = make("a");
   link.className = "ex-text-userinfo";
   link.href = user?.email
-    ? "https://famous-sorbet-043f80.netlify.app/user"
-    : "https://famous-sorbet-043f80.netlify.app/auth/login/extension";
+    ? "https://vocanote.netlify.app/user"
+    : "https://vocanote.netlify.app/auth/login/extension";
   link.target = "_blank";
 
   link.append(text);
@@ -412,7 +412,7 @@ const renderSaveWordBtns = async (wrapper, ids) => {
       btnSave.classList.add('loading')
       btnSave.classList.add('disabled')
       fetch(
-        `https://famous-sorbet-043f80.netlify.app/api/word?q=${saveWordData}`
+        `https://vocanote.netlify.app/api/word?q=${saveWordData}`
       ).then((res) => {
         if (res.ok) {
           btnSave.classList.remove('voca-save-word')
