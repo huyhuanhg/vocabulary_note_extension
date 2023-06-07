@@ -399,29 +399,33 @@ const renderSaveWordBtns = async (wrapper, ids) => {
 
     if (existVocabularyIds.includes(wordId)) {
       btnSave.classList.add("voca-save-word-has-saved");
-      btnSave.querySelector('.voca-word-action-btn-label').innerText = 'Đã lưu'
+      btnSave.querySelector(".voca-word-action-btn-label").innerText = "Đã lưu";
       return;
     }
 
     btnSave.classList.add("voca-save-word");
     btnSave.onclick = () => {
-      if (btnSave.classList.contains('disabled')  || !btnSave.classList.contains('voca-save-word')) {
-        return
+      if (
+        btnSave.classList.contains("disabled") ||
+        !btnSave.classList.contains("voca-save-word")
+      ) {
+        return;
       }
 
-      btnSave.classList.add('loading')
-      btnSave.classList.add('disabled')
-      fetch(
-        `https://vocanote.netlify.app/api/word?q=${saveWordData}`
-      ).then((res) => {
-        if (res.ok) {
-          btnSave.classList.remove('voca-save-word')
-          btnSave.classList.add('voca-save-word-has-saved')
-          btnSave.querySelector('.voca-word-action-btn-label').innerText = 'Đã lưu'
-        }
-      }).finally(() => {
-        btnSave.classList.remove('loading')
-      });
+      btnSave.classList.add("loading");
+      btnSave.classList.add("disabled");
+      fetch(`https://vocanote.netlify.app/api/word?q=${saveWordData}`)
+        .then((res) => {
+          if (res.ok) {
+            btnSave.classList.remove("voca-save-word");
+            btnSave.classList.add("voca-save-word-has-saved");
+            btnSave.querySelector(".voca-word-action-btn-label").innerText =
+              "Đã lưu";
+          }
+        })
+        .finally(() => {
+          btnSave.classList.remove("loading");
+        });
     };
   });
 };
@@ -495,9 +499,9 @@ const getWordDetailNode = (
     btnSave.dataset.wordId = saveData.id;
   }
 
-  wordDetailNode.querySelector(
-    ".voca-text-translate"
-  ).innerHTML = `${data.trans} ${type ? `(${type })` : ''}`;
+  wordDetailNode.querySelector(".voca-text-translate").innerHTML = `${
+    data.trans
+  } ${type ? `(${type})` : ""}`;
   wordDetailNode.querySelector(".voca-word-sentence").innerHTML =
     data.en_sentence;
 
@@ -535,9 +539,9 @@ const renderSuggestContent = async (box, data, text) => {
   trans.onclick = () => {
     box.innerHTML = "";
     box.classList.add("loading");
-    renderTranslate(box, text)
+    renderTranslate(box, text);
   };
-  wrapper.append(trans)
+  wrapper.append(trans);
 
   box.append(wrapper);
   box.classList.remove("loading");
@@ -559,7 +563,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 });
 
-let preText = ''
+let preText = "";
 document.onmouseup = (e) => {
   const { dataset } = e.target;
 
@@ -577,11 +581,11 @@ document.onmouseup = (e) => {
   document.querySelector("#box_content_voca_extension")?.remove();
 
   const select = getSelectionText();
-  if(preText === select) {
-    return
+  if (preText === select) {
+    return;
   }
 
-  preText = select
+  preText = select;
 
   if (select.length > 1000) {
     return;
@@ -594,6 +598,28 @@ document.onmouseup = (e) => {
   show(select);
 };
 
+document.onkeydown = (e) => {
+  const vocaBox = document.querySelector("#box_content_voca_extension");
+
+  if (!vocaBox) {
+    return;
+  }
+
+  if (e.key === "Escape") {
+    vocaBox.remove();
+    return;
+  }
+
+  const { target } = e;
+
+  if (
+    (target.nodeName === "INPUT" || target.nodeName === "TEXTAREA") &&
+    !target.dataset.hasOwnProperty("disabledMousedown")
+  ) {
+    vocaBox.remove();
+    return;
+  }
+};
 // document.onmousedown = (e) => {
 //   const { dataset } = e.target;
 
