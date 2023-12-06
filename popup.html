@@ -9,6 +9,8 @@
     rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/popup.css">
   <script src="./assets/js/box-login-or-user.js" defer></script>
+  <script src="./assets/js/box-input-search.js" defer></script>
+  <script src="./assets/js/box-result.js" defer></script>
   <script src="./assets/js/popup.js" defer type="module"></script>
 </head>
 
@@ -30,10 +32,11 @@
         </a> -->
       </box-login-or-user>
     </div>
-    <div class="box_input_search">
+    <box-input-search class="box_input_search">
       <input class="box_input_search-input" placeholder="Tra cứu">
-      <img src="./assets/images/search.png" alt="search">
-    </div>
+      <img src="./assets/images/search.png" alt="search" class="box_input_search-submit">
+    </box-input-search>
+    <box-result />
   </div>
 </body>
 

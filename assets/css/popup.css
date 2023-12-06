@@ -10,6 +10,7 @@
 .box_input_search {
   position: relative;
   margin-top: 1%;
+  display: block;
 }
 
 .box_input_search-input {
@@ -37,5 +38,32 @@
   top: 5px;
   width: 26px;
   cursor: pointer;
+}
+
+box-result {
+  position: relative;
+  margin-top: .5rem;
+  display: block;
+  min-height: 50px;
+}
+
+box-result.loading::after {
+  display: block;
+  content: '';
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 1s linear infinite;
+
+  position: absolute;
+  top: calc(50% - 22px);
+  left: calc(50% - 22px);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
