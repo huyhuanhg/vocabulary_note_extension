@@ -118,9 +118,9 @@ class BoxResult extends HTMLElement {
       suggestElm.id = `voca-suggest-word-${index}`;
       suggestElm.innerHTML = suggest;
       suggestElm.onclick = () => {
-        // box.innerHTML = "";
-        // box.classList.add("loading");
-        // renderWordsOrSuggests(box, suggest);
+        const searchElm = document.querySelector("box-input-search");
+
+        searchElm.dispatchEvent(new CustomEvent('search', { detail: { keyword: suggest }}))
       };
 
       wrapper.append(suggestElm);
@@ -130,9 +130,9 @@ class BoxResult extends HTMLElement {
     trans.innerHTML = `Dịch cụm từ: "<span class="highlight">${keyword}</span>"`;
     trans.classList.add("voca-suggest-trans");
     trans.onclick = () => {
-      // box.innerHTML = "";
-      // box.classList.add("loading");
-      // renderTranslate(box, text);
+      const searchElm = document.querySelector("box-input-search");
+
+      searchElm.dispatchEvent(new CustomEvent('search', { detail: { keyword, mode: 'trans' }}))
     };
     wrapper.append(trans);
 
@@ -250,9 +250,14 @@ class BoxResult extends HTMLElement {
   }
 
   #getUser() {
-    return JSON.parse(
-      '{"email":"huyhuanhg@gmail.com","displayName":"Huy Huấn Hoàng","photoURL":"https://lh3.googleusercontent.com/a/AGNmyxZeHznjiil-R5jRuKx5PGFQy4duquKMRhz6ggda=s96-c"}'
-    );
+    return chrome.storage.local.get(["userinfo"]).then((result) => {
+      if (result.hasOwnProperty("userinfo")) {
+        const { email, displayName, photoURL } = JSON.parse(result.userinfo);
+        return { email, displayName, photoURL };
+      }
+
+      return null;
+    });
   }
 
   #getWordDetailNode = (

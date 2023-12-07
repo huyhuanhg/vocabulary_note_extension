@@ -1,5 +1,3 @@
-
-
 chrome.runtime.onMessage.addListener(
   ({ method, data }, sender, sendResponse) => {
     switch (method) {

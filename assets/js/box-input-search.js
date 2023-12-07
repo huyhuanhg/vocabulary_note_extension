@@ -12,12 +12,13 @@ class BoxInputSearch extends HTMLElement {
   {
     this.addEventListener('search', (event) => {
       const keyword = event.detail?.keyword
+      const mode = event.detail?.mode
 
       if (!keyword) {
         return
       }
 
-      this.onSearch(keyword)
+      this.onSearch(keyword, mode)
     }, false)
   }
 
@@ -42,7 +43,7 @@ class BoxInputSearch extends HTMLElement {
     submitBtn.onclick = () => this.onSearch(this.keywordState);
   }
 
-  onSearch(keyword) {
+  onSearch(keyword, mode = null) {
     if (!keyword) {
       return;
     }
@@ -51,7 +52,7 @@ class BoxInputSearch extends HTMLElement {
 
     resultElm.classList.add("loading");
 
-    this.handleSearch(keyword)
+    this.handleSearch(keyword, mode)
       .then(detail => {
         this.prevKeyword = keyword
 
@@ -60,8 +61,8 @@ class BoxInputSearch extends HTMLElement {
       .finally(() => resultElm.classList.remove("loading"));
   }
 
-  handleSearch(keyword) {
-    if (keyword.length > 30) {
+  handleSearch(keyword, mode = null) {
+    if (keyword.length > 30 || mode === 'trans') {
       return this.fetchTranslate(keyword).then((res) => {
         return {
           type: "translate",
