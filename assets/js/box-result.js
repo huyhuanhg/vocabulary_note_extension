@@ -203,8 +203,8 @@ class BoxResult extends HTMLElement {
         const wordDetail = document.createElement("div");
         wordDetail.classList.add("voca-word-detail-list");
 
-        detail.forEach((wordDetailItem) => {
-          const detailNode = this.#getWordDetailNode(
+        detail.forEach(async (wordDetailItem) => {
+          const detailNode = await this.#getWordDetailNode(
             wordDetailStub,
             type,
             wordDetailItem,
@@ -260,17 +260,16 @@ class BoxResult extends HTMLElement {
     });
   }
 
-  #getWordDetailNode = (
+  async #getWordDetailNode (
     wordDetailStub,
     type,
     data,
     content,
     ipa_us = null,
     audio_us = null
-  ) => {
+  ) {
     const wordDetailNode = this.#textToNode(wordDetailStub);
-    const user = this.#getUser();
-
+    const user = await this.#getUser();
     if (!user) {
       wordDetailNode.querySelector(".voca-word-action-btns")?.remove();
     } else {
@@ -312,8 +311,8 @@ class BoxResult extends HTMLElement {
     return wrapper;
   }
 
-  #renderSaveWordBtns = async (wrapper, ids) => {
-    const user = this.#getUser();
+  async #renderSaveWordBtns (wrapper, ids) {
+    const user = await this.#getUser();
 
     if (!user) {
       return;
